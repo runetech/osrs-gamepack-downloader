@@ -32,7 +32,26 @@ dependencies {
 }
 
 
+tasks.jar {
+    enabled = false
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+val fatJar = task("fatJar", type = Jar::class) {
+    archiveName = "${project.name}.jar"
+    manifest {
+        attributes["Implementation-Version"] = version
+        attributes["Main-Class"] = "dev.mahabal.runetech.GamepackDownloaderKt"
+    }
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks.jar.get() as CopySpec)
+}
+
+tasks {
+    "build" {
+        dependsOn(fatJar)
+    }
 }
