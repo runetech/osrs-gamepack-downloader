@@ -1,0 +1,37 @@
+image: openjdk:12-jdk
+
+stages:
+  - build
+  - test
+
+before_script:
+  - chmod +x ./gradlew
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+    - build/*
+    - src/*
+
+build:
+  stage: build
+  script:
+    - ./gradlew build
+  only:
+    - master
+
+
+Test:
+  stage: test
+  script:
+    - ./gradlew check
+  artifacts:
+    reports:
+      junit: build/test-results/test/TEST-*.xml
+  only:
+    - master
+
+after_script:
+  - echo "End CI"
