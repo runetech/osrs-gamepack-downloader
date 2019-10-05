@@ -17,7 +17,6 @@ import java.nio.file.StandardOpenOption
 import java.nio.file.attribute.BasicFileAttributeView
 import java.util.*
 import java.util.jar.JarFile
-import kotlin.collections.HashMap
 
 typealias ClassMap = HashMap<String, ClassNode>
 
