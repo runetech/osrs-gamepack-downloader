@@ -50,6 +50,14 @@ java -jar osrs-gamepack-downloader.jar [OPTIONS]
 
 ```
 
+## Examples
+
+To just print out the current gamepack revision:
+
+```
+java -jar osrs-gamepack-downloader -r
+```
+
 ## Contact
 
 **Discord:** Matthew#0001
