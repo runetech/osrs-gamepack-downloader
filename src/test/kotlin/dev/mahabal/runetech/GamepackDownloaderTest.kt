@@ -49,4 +49,9 @@ internal class GamepackDownloaderTest {
                 "Could not determine a valid gamepack value. Retrieved: ${gamepack.revision}")
     }
 
+    @Test
+    fun `Print jav_config`() {
+        javConfig.forEach { t, u -> println("$t : $u") }
+    }
+
 }

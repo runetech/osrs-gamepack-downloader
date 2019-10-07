@@ -23,7 +23,10 @@ typealias ClassMap = HashMap<String, ClassNode>
 data class JavConfig(val javConfigUrl: String = "https://oldschool.runescape.com/jav_config.ws") {
     val properties: Properties by lazy {
         val config = Properties()
-        config.load(Jsoup.connect(javConfigUrl).get().wholeText().byteInputStream())
+        config.load(Jsoup.connect(javConfigUrl).get().wholeText()
+                .replace("msg=", "msg_")
+                .replace("param=", "param_")
+                .byteInputStream())
         config
     }
 }
