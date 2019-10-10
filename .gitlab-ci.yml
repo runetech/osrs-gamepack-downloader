@@ -19,6 +19,10 @@ build:
   stage: build
   script:
     - ./gradlew build
+  artifacts:
+    paths:
+    - build/libs/osrs-gamepack-downloader.jar
+    expire_in: 1 week
   only:
     - master
 
