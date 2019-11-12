@@ -133,9 +133,16 @@ class Main : CliktCommand() {
             .default("osrs-\${revision}.jar")
     private val output by option("-d", "--directory", help = "the full path to the DIRECTORY to save the gamepack").default("./")
     private val rev by option("-r", "--revision", help = "just print out the current gamepack revision ").flag()
+    private val printProperties by option("-p", "--properties", help = "prints the contents of the jav_config.ws file").flag()
     override fun run() {
+        val properties = JavConfig().properties
+        if (printProperties) {
+            properties.entries.sortedBy { entry -> entry.key.toString() }
+                    .forEach { entry -> println("${entry.key}=${entry.value}") }
+            return
+        }
         val outputPath = Paths.get(output)
-        val gamepack = Gamepack(JavConfig().properties)
+        val gamepack = Gamepack(properties)
         if (rev) {
             println(gamepack.revision)
         } else {
