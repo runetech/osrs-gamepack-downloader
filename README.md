@@ -50,6 +50,9 @@ java -jar osrs-gamepack-downloader.jar [OPTIONS]
     -f, --file-name     
         the format for the gamepack's name. [default = "osrs-${revision}.jar"]
 
+    -p, --properties
+        prints the contents of the jav_config.ws file to stdout
+
 ```
 
 ## Examples
