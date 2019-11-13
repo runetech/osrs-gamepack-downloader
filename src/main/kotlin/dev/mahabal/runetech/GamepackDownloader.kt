@@ -140,6 +140,9 @@ class Main : CliktCommand() {
         if (printProperties) {
             properties.entries.sortedBy { entry -> entry.key.toString() }
                     .forEach { entry -> println("${entry.key}=${entry.value}") }
+            // if we are skipping the download and we don't care about revision
+            // we can just return here to save time
+            if (!rev && skipDownload) return
         }
         val outputPath = Paths.get(directory)
         val gamepack = Gamepack(properties)
