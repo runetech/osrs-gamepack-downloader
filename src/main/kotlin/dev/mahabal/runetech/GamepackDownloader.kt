@@ -131,23 +131,23 @@ class Main : CliktCommand() {
     private val fileNameFormat:
             String by option("-f", "--file-name", help = "format for naming gamepack. default = osrs-\${revision}.jar")
             .default("osrs-\${revision}.jar")
-    private val output by option("-d", "--directory", help = "the full path to the DIRECTORY to save the gamepack").default("./")
-    private val rev by option("-r", "--revision", help = "just print out the current gamepack revision ").flag()
+    private val directory by option("-d", "--directory", help = "the full path to the DIRECTORY to save the gamepack").default("./")
+    private val rev by option("-r", "--revision", help = "prints out the current gamepack revision ").flag()
+    private val skipDownload by option("--no-download", help = "nothing will be saved to the filesystem").flag()
     private val printProperties by option("-p", "--properties", help = "prints the contents of the jav_config.ws file").flag()
     override fun run() {
         val properties = JavConfig().properties
         if (printProperties) {
             properties.entries.sortedBy { entry -> entry.key.toString() }
                     .forEach { entry -> println("${entry.key}=${entry.value}") }
-            return
         }
-        val outputPath = Paths.get(output)
+        val outputPath = Paths.get(directory)
         val gamepack = Gamepack(properties)
         if (rev) {
             println(gamepack.revision)
-        } else {
-            gamepack.dump(outputPath, fileNameFormat)
         }
+        if (!skipDownload)
+            gamepack.dump(outputPath, fileNameFormat)
     }
 }
 
