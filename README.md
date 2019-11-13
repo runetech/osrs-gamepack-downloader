@@ -53,6 +53,9 @@ java -jar osrs-gamepack-downloader.jar [OPTIONS]
     -p, --properties
         prints the contents of the jav_config.ws file to stdout
 
+    --dry-run
+        skip writing the gamepack to the filesystem
+
 ```
 
 ## Examples
@@ -60,7 +63,7 @@ java -jar osrs-gamepack-downloader.jar [OPTIONS]
 To just print out the current gamepack revision:
 
 ```
-java -jar osrs-gamepack-downloader -r
+java -jar osrs-gamepack-downloader -r --dry-run
 ```
 
 ## Contact
