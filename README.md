@@ -10,6 +10,8 @@ What does this program do?
 - Downloads the gamepack from the parsed  URL (codebase + initial_jar)
 - Analyzes the gamepack's bytecode to determine the actual revision.
 - Writes the gamepack to the provided (or current) directory.
+- Fixes the dates (created, modified, accessed) to reflect when the
+gamepack was built.
 
 ## Prerequisites
 
