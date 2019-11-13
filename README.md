@@ -1,6 +1,7 @@
 # OSRS Gamepack Downloader
 
-Simple OldSchool RuneScape gamepack downloader written in [Kotlin](https://kotlinlang.org).
+Simple OldSchool RuneScape gamepack downloader written in [Kotlin](https://kotlinlang.org). A collection of 
+downloaded gamepacks can be found [here](https://github.com/runetech/osrs-gamepacks).
 
 What does this program do?
 
