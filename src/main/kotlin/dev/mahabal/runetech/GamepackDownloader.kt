@@ -146,9 +146,8 @@ class Main : CliktCommand() {
         }
         val outputPath = Paths.get(directory)
         val gamepack = Gamepack(properties)
-        if (rev) {
+        if (rev)
             println(gamepack.revision)
-        }
         if (!dryRun)
             gamepack.dump(outputPath, fileNameFormat)
     }
