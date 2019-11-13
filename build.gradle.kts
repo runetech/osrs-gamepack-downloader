@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.mahabal.runetech"
-version = "1.0.5"
+version = "1.1"
 
 repositories {
     mavenCentral()
