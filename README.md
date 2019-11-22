@@ -1,4 +1,5 @@
-# OSRS Gamepack Downloader
+# OSRS Gamepack Downloader 
+[![Actions Status](https://github.com/runetech/osrs-gamepack-downloader/workflows/Release%20Binary/badge.svg)](https://github.com/runetech/osrs-gamepacks/actions) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8d6c1deeb57847b4a79f5652eb0ce06c)](https://www.codacy.com/gh/runetech/osrs-gamepack-downloader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=runetech/osrs-gamepack-downloader&amp;utm_campaign=Badge_Grade)
 
 Simple OldSchool RuneScape gamepack downloader written in [Kotlin](https://kotlinlang.org). A collection of
 downloaded gamepacks can be found [here](https://github.com/runetech/osrs-gamepacks).
@@ -9,8 +10,7 @@ What does this program do?
 - Downloads the gamepack from the parsed  URL (codebase + initial_jar)
 - Analyzes the gamepack's bytecode to determine the actual revision.
 - Writes the gamepack to the provided (or current) directory.
-- Fixes the dates (created, modified, accessed) to reflect when the
-gamepack was built.
+- Fixes the dates (created, modified, accessed) to reflect when the gamepack was built.
 
 ## Prerequisites
 
@@ -37,7 +37,11 @@ gamepack to the same directory and name it accordingly.
 java -jar osrs-gamepack-downloader.jar [OPTIONS]
 ```
 
+<<<<<<< HEAD
+```bash
+=======
 ```none
+>>>>>>> c2256d936b79dcd1f47c568c6d1a70ab41d51322
 [OPTIONS]
 
     -r. --revision
