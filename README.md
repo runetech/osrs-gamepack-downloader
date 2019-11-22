@@ -37,11 +37,7 @@ gamepack to the same directory and name it accordingly.
 java -jar osrs-gamepack-downloader.jar [OPTIONS]
 ```
 
-<<<<<<< HEAD
 ```bash
-=======
-```none
->>>>>>> c2256d936b79dcd1f47c568c6d1a70ab41d51322
 [OPTIONS]
 
     -r. --revision
