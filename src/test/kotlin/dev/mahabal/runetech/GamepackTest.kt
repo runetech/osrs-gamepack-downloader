@@ -7,6 +7,7 @@ import java.nio.file.Paths
 
 internal class GamepackTest {
 
+    private val gamepackName = "gamepack.jar"
     private val gamepack = Gamepack(JavConfig().properties)
 
     /** Technically this check also validates the initial_class property in jav_config */
@@ -16,9 +17,9 @@ internal class GamepackTest {
     @Test
     fun `Test Dump`() {
         val path = Paths.get("./")
-        gamepack.dump(path, "gamepack.jar")
-        assertTrue(Files.isRegularFile(path.resolve("gamepack.jar")))
-        Files.deleteIfExists(path.resolve("gamepack.jar"))
+        gamepack.dump(path, gamepackName)
+        assertTrue(Files.isRegularFile(path.resolve(gamepackName)))
+        Files.deleteIfExists(path.resolve(gamepackName))
     }
 
 }
