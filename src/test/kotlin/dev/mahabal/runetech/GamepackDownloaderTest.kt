@@ -1,57 +1,50 @@
 package dev.mahabal.runetech
 
-import org.jsoup.Jsoup
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
+import java.nio.file.Files
+import java.nio.file.Paths
 
 internal class GamepackDownloaderTest {
 
-    private val javConfig = JavConfig().properties
+    val revision = Gamepack(JavConfig().properties).revision
+    val mainClass = Main()
+    val output = ByteArrayOutputStream()
 
-    @Test
-    fun `Validate Configuration`() {
-        assertTrue(javConfig.isNotEmpty(), "Configuration was empty")
+    init {
+        System.setOut(PrintStream(output))
     }
 
     @Test
-    fun `Check Codebase`() {
-        val codebase = javConfig.getProperty("codebase")
-        assertFalse(codebase.isBlank(), "Codebase was null or blank!")
+    fun `Test revision checker`() {
+        mainClass.main(arrayOf("-r", "--dry-run"))
+        // remove the new lines from the output and compare it to the stored revision
+        assertEquals(revision, output.toString().replace(Regex("[\\r\\n]+"), "").toInt())
     }
 
-    @Test
-    fun `Check Initial Class`() {
-        val initialClass = javConfig.getProperty("initial_class")
-        assertFalse(initialClass.isBlank(), "Initial class was null or blank!")
-    }
 
     @Test
-    fun `Check Initial Jar`() {
-        val initialJar = javConfig.getProperty("initial_jar")
-        assertFalse(initialJar.isBlank(), "Initial class was null or blank!")
+    fun `Test Default Dumper`() {
+        mainClass.main(arrayOf())
+        val dumped = Paths.get("./").resolve("osrs-$revision.jar")
+        assertTrue(Files.isRegularFile(dumped))
+        Files.deleteIfExists(dumped)
     }
 
-    @Test
-    fun `Check Gamepack URL`() {
-        val gamepackURL = javConfig.getProperty("codebase") + javConfig.getProperty("initial_jar")
-        assertEquals(200,
-                Jsoup.connect(gamepackURL)
-                        .ignoreContentType(true)
-                        .execute()
-                        .statusCode(),
-                "Unable to establish a successful connection to $gamepackURL")
-    }
+    @AfterEach
+    fun resetOutput() = output.reset()
 
     @Test
-    fun `Validate Revision`() {
-        val gamepack = Gamepack(javConfig)
-        assertTrue(gamepack.revision in 0..255,
-                "Could not determine a valid gamepack value. Retrieved: ${gamepack.revision}")
+    fun `Test properties dumper`() {
+        mainClass.main(arrayOf("-p", "--dry-run"))
+        assertTrue(output.toString().contains("codebase="))
+        assertTrue(output.toString().contains("initial_jar="))
+        assertTrue(output.toString().contains("initial_class="))
     }
 
-    @Test
-    fun `Print jav_config`() {
-        javConfig.forEach { t, u -> println("$t : $u") }
-    }
 
 }
