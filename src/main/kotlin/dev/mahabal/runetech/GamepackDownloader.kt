@@ -97,6 +97,7 @@ class Gamepack(private val javConfig: Properties) {
         val time = jar.getJarEntry(javConfig.getProperty("initial_class")).lastModifiedTime
         val attributes = Files.getFileAttributeView(outputPath, BasicFileAttributeView::class.java)
         attributes.setTimes(time, time, time)
+        jar.close()
     }
 
 }
