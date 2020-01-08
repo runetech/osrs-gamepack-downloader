@@ -82,7 +82,7 @@ class Gamepack(private val javConfig: Properties) {
 /**
  * Adds an extension to convert a byte array of a gamepack to a ClassMap
  */
-fun ByteArray.asClassMap(): ClassMap {
+private fun ByteArray.asClassMap(): ClassMap {
     val temp = Paths.get("gamepack.jar")
     val jar = JarFile(Files.write(temp, this, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING).toFile())
     val map = ClassMap()
@@ -98,7 +98,7 @@ fun ByteArray.asClassMap(): ClassMap {
 /**
  * Adds an extension to convert an InputStream to an ASM class node
  */
-fun InputStream.asClassNode(): ClassNode {
+private fun InputStream.asClassNode(): ClassNode {
     val clazz = ClassReader(this.readBytes())
     val node = ClassNode()
     clazz.accept(node, ClassReader.EXPAND_FRAMES)
