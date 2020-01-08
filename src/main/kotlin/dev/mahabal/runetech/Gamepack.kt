@@ -19,18 +19,14 @@ typealias ClassMap = HashMap<String, ClassNode>
 /**
  * Represents a Gamepack (a JAR file containing all of the client classes)
  */
-class Gamepack(private val javConfig: Properties) {
-    // download the gamepack and convert it to a ByteArray
-    private val bytes = Jsoup.connect(javConfig.getProperty("codebase") + javConfig.getProperty("initial_jar"))
-            .maxBodySize(0).ignoreContentType(true)
-            .execute().bodyAsBytes()
+abstract class Gamepack(private val bytes: ByteArray, private val initialClass: String = "client.class") {
     // convert the gamepack ByteArray to a ClassMap
     private val classMap = bytes.asClassMap()
     // gets the current revision of the gamepack by analyzing the bytecode
     val revision: Int by lazy {
         var revision = -1
         // get the initial_class of the jar (should be "client.class")
-        val client = classMap[javConfig.getProperty("initial_class").replace(".class", "")]
+        val client = classMap[initialClass.replace(".class", "")]
         if (client != null) {
             // in order to determine the revision of the client we are looking for an instanced method
             // call similar to: method(765, 503, $revision, ...);, which means that we will look for
@@ -71,13 +67,26 @@ class Gamepack(private val javConfig: Properties) {
         val outputPath = directory.resolve(fileName)
         Files.write(outputPath, bytes, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
         val jar = JarFile(outputPath.toFile())
-        val time = jar.getJarEntry(javConfig.getProperty("initial_class")).lastModifiedTime
+        val time = jar.getJarEntry(initialClass).lastModifiedTime
         val attributes = Files.getFileAttributeView(outputPath, BasicFileAttributeView::class.java)
         attributes.setTimes(time, time, time)
         jar.close()
     }
 
 }
+
+/** Downloads and loads a gamepack using the [JavConfig] provided. */
+class RemoteGamepack(javConfig: Properties) : Gamepack(
+        Jsoup.connect(javConfig.getProperty("codebase") + javConfig.getProperty("initial_jar"))
+                .maxBodySize(0)
+                .ignoreContentType(true)
+                .execute()
+                .bodyAsBytes(),
+        javConfig.getProperty("initial_class")
+)
+
+/** Loads a gamepack from the specified [Path]. */
+class LocalGamepack(path: Path) : Gamepack(Files.readAllBytes(path))
 
 /**
  * Adds an extension to convert a byte array of a gamepack to a ClassMap

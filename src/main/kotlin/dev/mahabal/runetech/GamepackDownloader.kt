@@ -25,7 +25,7 @@ class Main : CliktCommand() {
             if (!rev && dryRun) return
         }
         val outputPath = Paths.get(directory)
-        val gamepack = Gamepack(properties)
+        val gamepack = RemoteGamepack(properties)
         if (rev)
             println(gamepack.revision)
         if (!dryRun)

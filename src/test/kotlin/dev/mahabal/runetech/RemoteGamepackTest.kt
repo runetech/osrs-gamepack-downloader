@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test
 import java.nio.file.Files
 import java.nio.file.Paths
 
-internal class GamepackTest {
+internal class RemoteGamepackTest {
 
     private val gamepackName = "gamepack.jar"
-    private val gamepack = Gamepack(JavConfig().properties)
+    private val gamepack = RemoteGamepack(JavConfig().properties)
 
     /** Technically this check also validates the initial_class property in jav_config */
     @Test

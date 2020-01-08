@@ -11,7 +11,7 @@ import java.nio.file.Paths
 
 internal class GamepackDownloaderTest {
 
-    private val revision = Gamepack(JavConfig().properties).revision
+    private val revision = RemoteGamepack(JavConfig().properties).revision
     private val mainClass = Main()
     private val output = ByteArrayOutputStream()
 
