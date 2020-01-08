@@ -2,7 +2,7 @@
 [![Actions Status](https://github.com/runetech/osrs-gamepack-downloader/workflows/Release%20Binary/badge.svg)](https://github.com/runetech/osrs-gamepack-downloader/actions) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8d6c1deeb57847b4a79f5652eb0ce06c)](https://www.codacy.com/gh/runetech/osrs-gamepack-downloader?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=runetech/osrs-gamepack-downloader&amp;utm_campaign=Badge_Grade)[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)
 
 Simple OldSchool RuneScape gamepack downloader written in [Kotlin](https://kotlinlang.org). A collection of
-downloaded gamepacks can be found [here](https://github.com/runetech/osrs-gamepacks/gamepacks).
+downloaded gamepacks can be found [here](https://github.com/runetech/osrs-gamepacks/).
 
 What does this program do?
 
