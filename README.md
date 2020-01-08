@@ -26,12 +26,49 @@ Use the included `gradlew` (Linux/OSX) or `gradlew.bat` (Windows) files to let g
 
 The executable will be located at `build/libs/osrs-gamepack-downloader.jar`.
 
-## Usage
+## Library Usage
+
+You can add a binary as a library for your project and use the methods to download/load/verify gamepacks. 
+
+### Java
+
+To download the latest gamepack and load it into a class map (`HashMap<String, ClassNode>`), modify it and then save it:
+
+```java
+import dev.mahabal.runetech.Gamepack;
+import dev.mahabal.runetech.JavConfig;
+import dev.mahabal.runetech.RemoteGamepack;
+import org.objectweb.asm.tree.ClassNode;
+
+import java.nio.file.Paths;
+import java.util.HashMap;
+
+public class Application {
+
+    public static void main(String[] args) {
+        // download and load the latest gamepack
+        final Gamepack gamepack = new RemoteGamepack(new JavConfig().getProperties());
+        // print out the gamepack revision
+        System.out.printf("Gamepack Revision: %,d%n", gamepack.getRevision());
+        // convert gamepack to a class map
+        final HashMap<String, ClassNode> classMap = gamepack.getClassMap();
+        // iterate the class map
+        classMap.forEach((name, node) -> {
+            // do something to the gamepack
+        });
+        // write the gamepack (with changes) to the desired file.
+        gamepack.dump(Paths.get("./"), "osrs-${revision}.jar");
+    }
+
+}
+```
+
+## Standalone Usage
 
 Double clicking the `osrs-gamepack-downloader.jar` file will download the latest
 gamepack to the same directory and name it accordingly.
 
-### Command line
+### CLI
 
 ```bash
 java -jar osrs-gamepack-downloader.jar [OPTIONS]
