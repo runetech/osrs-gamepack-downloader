@@ -73,6 +73,8 @@ abstract class Gamepack(private val bytes: ByteArray, private val initialClass: 
         jar.close()
     }
 
+    fun getClassMap(): ClassMap = classMap
+
 }
 
 /** Downloads and loads a gamepack using the [JavConfig] provided. */
