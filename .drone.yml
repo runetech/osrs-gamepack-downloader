@@ -1,0 +1,10 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: Gradle
+  image: gradle:jdk14
+  commands:
+  - gradle assemble
+  - gradle check
