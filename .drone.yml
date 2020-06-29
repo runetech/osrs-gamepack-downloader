@@ -1,5 +1,4 @@
 kind: pipeline
-type: docker
 name: default
 
 steps:
@@ -8,3 +7,7 @@ steps:
   commands:
   - gradle assemble
   - gradle check
+
+trigger:
+  branch:
+    - master
